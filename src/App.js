@@ -1,12 +1,10 @@
 import './App.css';
-import Test from './Components/test';
+import BubbleSort from './Components/BubbleSort';
 
 function App() {
   return (
     <div className="App">
-      <h1>Bubble Sort Algorithm</h1>
-      <Test />
-
+      <BubbleSort />
     </div>
   );
 }

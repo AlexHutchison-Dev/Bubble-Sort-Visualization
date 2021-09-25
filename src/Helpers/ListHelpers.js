@@ -9,14 +9,16 @@ export function generateList(range) {
   for (var i = 0; i < range; i++) {
     list[i] = i + 1;
   }
-
   return list;
 }
+
 /** Takes an array and mixes its contents by genreating a new random index for
 *   each number.
 *   @param {array} list - list of numbers to be unsorted
 */
 export function unsortList(list) {
+  var unsortedList;
+
   list.forEach((number, index, array) => {
     var temp;
     var newIndex = Math.floor(Math.random() * array.length);
@@ -24,5 +26,8 @@ export function unsortList(list) {
     temp = array[newIndex];
     array[newIndex] = number;
     array[index] = temp;
+    unsortedList = array;
+
   });
+  return unsortedList;
 }
