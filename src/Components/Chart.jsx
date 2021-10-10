@@ -6,6 +6,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   height: 85vh;
   width: 85vw;
+  max-height: 1000px;
   border: 1px solid #555;
   align-items: flex-end;
 `;
