@@ -19,7 +19,9 @@ const BubbleSort = () => {
   var list = unsortList(generateList(range));
   var frames = bubbleSort(list);
 
-  useEffect(() => {}, [newList]);
+  useEffect(() => {
+    console.log("redrawing bubble sort");
+  }, [newList]);
 
   function toggleNewList() {
     setNewList(!newList);

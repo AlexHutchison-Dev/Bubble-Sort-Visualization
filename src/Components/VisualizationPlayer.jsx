@@ -12,8 +12,13 @@ const Container = styled.div`
 const VisualizationPlayer = ({ frames, range, newList }) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  console.log(frameIndex);
-  console.log(frames);
+
+  // Repaint when frames changes
+  useEffect(() => {
+    setFrameIndex(0);
+  }, [frames]);
+
+  // Animate frames
   useEffect(() => {
     if (playing) {
       play();
