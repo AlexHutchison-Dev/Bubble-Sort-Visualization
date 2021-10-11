@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Chart from './Chart';
-import ControlPane from './ControlPane';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import Chart from "./Chart";
+import ControlPane from "./ControlPane";
 
 const Container = styled.div`
   display: flex;
@@ -9,21 +9,21 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-const VisualizationPlayer = ({ frames, range }) => {
+const VisualizationPlayer = ({ frames, range, newList }) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-
+  console.log(frameIndex);
+  console.log(frames);
   useEffect(() => {
     if (playing) {
       play();
     }
     async function play() {
-      await sleep(250).then(
-        incrementFrameIndex());
+      await sleep(250).then(incrementFrameIndex());
     }
 
     function sleep(ms) {
-      return new Promise(resolve => setTimeout((resolve, ms)));
+      return new Promise((resolve) => setTimeout((resolve, ms)));
     }
   }, [playing, incrementFrameIndex]);
 
@@ -39,12 +39,32 @@ const VisualizationPlayer = ({ frames, range }) => {
     }
     setFrameIndex(frameIndex + 1);
   }
+
+  function reduceFrameIndex() {
+    console.log("de_incrementFrameIndex");
+    if (frameIndex === 0) {
+      setPlaying(false);
+      setFrameIndex(0);
+      return;
+    }
+    setFrameIndex(frameIndex - 1);
+  }
+
   return (
     <Container>
-      <Chart range={range} list={frames[frameIndex].list} focus={frames[frameIndex].focus} />
-      <ControlPane togglePlaying={togglePlaying} incrementFrames={incrementFrameIndex} />
+      <Chart
+        range={range}
+        list={frames[frameIndex].list}
+        focus={frames[frameIndex].focus}
+      />
+      <ControlPane
+        togglePlaying={togglePlaying}
+        incrementFrames={incrementFrameIndex}
+        reduceFrameIndex={reduceFrameIndex}
+        newList={newList}
+      />
     </Container>
-  )
-}
+  );
+};
 
-export default VisualizationPlayer
+export default VisualizationPlayer;

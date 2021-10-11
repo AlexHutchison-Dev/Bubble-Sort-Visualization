@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -15,22 +14,27 @@ const Container = styled.div`
 
 const Bar = styled.div`
   width: calc(100% / ${(props) => props.range});
-  height: ${props => props.height + "%"};
+  height: calc(
+    calc(100% / ${(props) => props.range}) * ${(props) => props.height}
+  );
   border: 1px solid black;
-  background-color: ${props => props.focus ? "#bb9af7" : "#7aa2f7"};
-
+  background-color: ${(props) => (props.focus ? "#bb9af7" : "#7aa2f7")};
 `;
 const Chart = ({ list, range, focus }) => {
-
   return (
     <Container>
-      {
-        list.map((number, index) => {
-          return <Bar key={Math.random()} height={number} range={range} focus={focus === index ? true : false} />
-        })
-      }
+      {list.map((number, index) => {
+        return (
+          <Bar
+            key={Math.random()}
+            height={number}
+            range={range}
+            focus={focus === index ? true : false}
+          />
+        );
+      })}
     </Container>
-  )
-}
+  );
+};
 
-export default Chart
+export default Chart;
