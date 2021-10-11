@@ -9,7 +9,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-const VisualizationPlayer = ({ frames }) => {
+const VisualizationPlayer = ({ frames, range }) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
 
@@ -41,7 +41,7 @@ const VisualizationPlayer = ({ frames }) => {
   }
   return (
     <Container>
-      <Chart list={frames[frameIndex]} />
+      <Chart range={range} list={frames[frameIndex].list} focus={frames[frameIndex].focus} />
       <ControlPane togglePlaying={togglePlaying} incrementFrames={incrementFrameIndex} />
     </Container>
   )

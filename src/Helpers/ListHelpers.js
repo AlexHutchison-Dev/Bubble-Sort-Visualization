@@ -52,7 +52,7 @@ export function bubbleSort(list) {
         list[i + 1] = list[i];
         list[i] = temp;
       }
-      frames.push([...list]);
+      frames.push({ list: [...list], focus: i });
     }
   }
   return frames;

@@ -22,7 +22,7 @@ const BubbleSort = () => {
   return (
     <Container className="BubbleSort Container">
       <Title />
-      <VisualizationPlayer frames={frames} />
+      <VisualizationPlayer range={range} frames={frames} />
     </Container>
   )
 }
