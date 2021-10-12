@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "reactstrap";
 import styled from "styled-components";
 
@@ -15,12 +16,23 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const ControlPane = ({
   togglePlaying,
   incrementFrames,
   reduceFrameIndex,
   handleNewList,
+  changeSpeed,
 }) => {
+  const [speed, setSpeed] = useState(50);
+  function handleChange(event) {
+    setSpeed(event.target.value);
+    changeSpeed(event.target.value);
+  }
   return (
     <Container>
       <ButtonGroup>
@@ -39,7 +51,19 @@ const ControlPane = ({
           {">>"}
         </Button>
       </ButtonGroup>
-      <ButtonGroup></ButtonGroup>
+      <ButtonGroup>
+        <label htmlFor="speed">
+          Interval
+          <input
+            id="speed"
+            type="range"
+            min="10"
+            max="1000"
+            value={speed}
+            onChange={handleChange}
+          />
+        </label>
+      </ButtonGroup>
     </Container>
   );
 };

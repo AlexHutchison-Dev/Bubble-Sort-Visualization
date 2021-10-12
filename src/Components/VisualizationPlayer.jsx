@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Chart from "./Chart";
 import ControlPane from "./ControlPane";
@@ -12,22 +12,16 @@ const Container = styled.div`
 const VisualizationPlayer = ({ frames, range, newList }) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [speed, setSpeed] = useState(50);
 
   // Animate frames
   useEffect(() => {
     if (playing) {
-      play();
+      setTimeout(() => {
+        incrementFrameIndex();
+      }, speed);
     }
-    async function play() {
-      await sleep(750).then(incrementFrameIndex());
-    }
-
-    function sleep(ms) {
-      console.log("going to sleep");
-      return new Promise((resolve) => setTimeout((resolve, ms)));
-      console.log("waking up");
-    }
-  }, [playing, incrementFrameIndex]);
+  }, [playing, incrementFrameIndex, speed]);
 
   function togglePlaying() {
     setPlaying(!playing);
@@ -62,6 +56,11 @@ const VisualizationPlayer = ({ frames, range, newList }) => {
   function handleNewList() {
     newList();
     resetFrameIndex();
+    setPlaying(false);
+  }
+
+  function changeSpeed(value) {
+    setSpeed(value);
   }
 
   return (
@@ -76,6 +75,7 @@ const VisualizationPlayer = ({ frames, range, newList }) => {
         incrementFrames={incrementFrameIndex}
         reduceFrameIndex={reduceFrameIndex}
         handleNewList={handleNewList}
+        changeSpeed={changeSpeed}
       />
     </Container>
   );
