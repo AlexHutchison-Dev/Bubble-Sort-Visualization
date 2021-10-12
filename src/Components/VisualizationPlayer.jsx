@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Chart from "./Chart";
 import ControlPane from "./ControlPane";
@@ -13,22 +13,19 @@ const VisualizationPlayer = ({ frames, range, newList }) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  // Repaint when frames changes
-  useEffect(() => {
-    setFrameIndex(0);
-  }, [frames]);
-
   // Animate frames
   useEffect(() => {
     if (playing) {
       play();
     }
     async function play() {
-      await sleep(250).then(incrementFrameIndex());
+      await sleep(750).then(incrementFrameIndex());
     }
 
     function sleep(ms) {
+      console.log("going to sleep");
       return new Promise((resolve) => setTimeout((resolve, ms)));
+      console.log("waking up");
     }
   }, [playing, incrementFrameIndex]);
 
@@ -55,8 +52,20 @@ const VisualizationPlayer = ({ frames, range, newList }) => {
     setFrameIndex(frameIndex - 1);
   }
 
+  function resetFrameIndex() {
+    console.log("Reset framIndex");
+    setFrameIndex(0);
+  }
+
+  // Resets frame index when newList called, as if the new lists needs less frmes than the current
+  // one the re-render causes an index out of bounds error.
+  function handleNewList() {
+    newList();
+    resetFrameIndex();
+  }
+
   return (
-    <Container>
+    <Container id="vis_player">
       <Chart
         range={range}
         list={frames[frameIndex].list}
@@ -66,7 +75,7 @@ const VisualizationPlayer = ({ frames, range, newList }) => {
         togglePlaying={togglePlaying}
         incrementFrames={incrementFrameIndex}
         reduceFrameIndex={reduceFrameIndex}
-        newList={newList}
+        handleNewList={handleNewList}
       />
     </Container>
   );

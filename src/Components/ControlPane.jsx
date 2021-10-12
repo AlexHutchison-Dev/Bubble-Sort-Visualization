@@ -14,16 +14,17 @@ const Container = styled.div`
   justify-content: space-evenly;
   width: 100%;
 `;
+
 const ControlPane = ({
   togglePlaying,
   incrementFrames,
   reduceFrameIndex,
-  newList,
+  handleNewList,
 }) => {
   return (
     <Container>
       <ButtonGroup>
-        <Button outline color="primary" onClick={newList}>
+        <Button outline color="primary" name="new-list" onClick={handleNewList}>
           New List
         </Button>
       </ButtonGroup>
