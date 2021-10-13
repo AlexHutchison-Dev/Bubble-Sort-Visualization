@@ -14,7 +14,6 @@ const VisualizationPlayer = ({ frames, range, newList, changeRange }) => {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(50);
 
-  console.log(frames.length);
   // Animate frames
   useEffect(() => {
     if (playing) {
